@@ -1,12 +1,17 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# School Library
+# School Library Bug Finding
 
-> This is a project from the third week of the fourth module of the Microverse Program.
+In the `Person` class, there seems to be a method that is not working as it is supposed to...
 
-In this project we learned how to work with classes following the 4 principles of Objec Oriented Programming. 3 different classes were created with different methods, `Person`, `Student`, and `Teacher`.
+The `validate_name` method is supposed to:
+- Make sure the first letter of the given person's name is a capital letter.
+- Make sure that the name has a maximum of 10 characters. If it is longer it should trim the word.
+- Validate and save the corrected name.
 
-> Each of the classes was created in a different `rb` file.
+Can you find out where the bug is?
+
+> You are allowed to change the code as you require to fix the bug. Happy coding!
 
 ## Getting Started
 
@@ -17,7 +22,11 @@ In this project we learned how to work with classes following the 4 principles o
 
 - Navigate to the repository by running `cd school-library`.
 
-- Finally, run `code .` to see the files in your default code editor.
+- Checkout to the correct branch by running `git checkout bug-finding`
+
+- Run `code .` to see the files in your default code editor.
+
+- Finally, run `ruby bug_finding.rb` to display information about a `student` and a `teacher` in the console. Who knows? You might get some clues here...
 
 ## Optional
 
