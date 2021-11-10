@@ -7,7 +7,7 @@ class Book
     @rentals = []
   end
 
-  attr_accessor :title, :book
+  attr_accessor :title, :author
 
   attr_reader :rentals
 
