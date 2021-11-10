@@ -1,4 +1,5 @@
 require_relative 'corrector'
+require_relative 'rental'
 
 class Person
   DEFAULT_BOOL = true
@@ -8,6 +9,7 @@ class Person
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
 
     @corrector = Corrector.new
   end
