@@ -22,17 +22,18 @@ module App
     end
   end
 
+  # rubocop:disable Metrics
   def create_person
     decision = 0
     until [1, 2].include?(decision)
       puts 'Do you want to create a student (1), or a teacher (2)?'
       print INPT_MSG
       decision = gets.chomp.to_i
-      if ![1, 2].include?(decision)
-        puts
-        puts 'Invalid input, please try again'
-        puts
-      end
+      next if [1, 2].include?(decision)
+
+      puts
+      puts 'Invalid input, please try again'
+      puts
     end
     print 'Age --> '
     age = gets.chomp.to_i
@@ -46,6 +47,8 @@ module App
     end
     puts
   end
+
+  # rubocop:enable Metrics
 
   def create_book
     puts 'Please, enter book information below:'
