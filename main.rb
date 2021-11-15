@@ -30,7 +30,6 @@ class Main
   end
 
   # rubocop:disable Metrics
-
   def select_option
     case @main_ans
     when 1
@@ -40,13 +39,13 @@ class Main
       display_people
       enter_msg
     when 3
-      create_person
+      user_person_input
     when 4
-      create_book
+      user_book_input
     when 5
-      create_rental unless @books.empty? && @people.empty?
+      user_rental_input unless @books.empty? && @people.empty?
     when 6
-      display_rentals
+      user_rental_id_input
     else
       if @main_ans != 7
         puts 'Invalid input, please try again'
@@ -56,6 +55,73 @@ class Main
   end
 
   # rubocop:enable Metrics
+
+  def user_person_input
+    decision = 0
+    until [1, 2].include?(decision)
+      puts 'Do you want to create a student (1), or a teacher (2)?'
+      print INPT_MSG
+      decision = gets.chomp.to_i
+      next if [1, 2].include?(decision)
+
+      puts
+      puts 'Invalid input, please try again'
+      puts
+    end
+    print 'Age --> '
+    age = gets.chomp.to_i
+    print 'Name --> '
+    name = gets.chomp
+    create_person(decision, age, name)
+  end
+
+  def user_book_input
+    puts 'Please, enter book information below:'
+    print 'Title --> '
+    title = gets.chomp
+    print 'Author --> '
+    author = gets.chomp
+    create_book(title, author)
+  end
+
+  def user_rental_input
+    puts 'Select a book from the following list:'
+    display_books
+    print INPT_MSG
+    book_index = gets.chomp.to_i
+    puts
+    puts 'Select a person form the following list:'
+    display_people
+    print INPT_MSG
+    person_index = gets.chomp.to_i
+    puts
+    print 'Enter date of retrieval --> '
+    date = gets.chomp
+    create_rental(book_index, person_index, date)
+  end
+
+  def user_rental_id_input
+    loop do
+      print 'Enter the person\'s ID --> '
+      display_people
+      person_input = gets.chomp.to_i
+      display_rentals(person_input)
+      break if person_input
+    end
+  end
+
+  def create_student_input(age, name)
+    print 'Has parent permission? [Y/N] --> '
+    permission = gets.chomp.upcase
+    permission = permission != 'N'
+    create_student(age, name, permission)
+  end
+
+  def create_teacher_input(age, name)
+    print 'Specialty --> '
+    specialty = gets.chomp
+    create_teacher(age, name, specialty)
+  end
 
   def main
     until @main_ans == 7
