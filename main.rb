@@ -33,14 +33,16 @@ class Main
     case @main_ans
     when 1
       display_books
+      enter_msg
     when 2
       display_people
+      enter_msg
     when 3
       create_person
     when 4
       create_book
     when 5
-      create_rental
+      create_rental unless @books.empty? && @people.empty?
     when 6
       display_rentals
     else

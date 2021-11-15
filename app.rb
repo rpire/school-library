@@ -2,22 +2,24 @@ module App
   INPT_MSG = 'Enter an option number here --> '.freeze
   ENTR_MSG = 'Press ENTER to continue'.freeze
 
-  def display_books
-    puts 'List of books:'
-    puts 'EMPTY' if @books.empty?
-    puts(@books.map { |book| "Title: #{book.title}, Author: #{book.author}" })
+  def enter_msg
     print ENTR_MSG
     gets
     puts
   end
 
+  def display_books
+    puts 'List of books:'
+    puts 'EMPTY' if @books.empty?
+    @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
+  end
+
   def display_people
     puts 'List of people:'
     puts 'EMPTY' if @people.empty?
-    puts(@people.map { |person| "[#{person.class}] - Name: #{person.name}, Age: #{person.age}, ID: #{person.id}" })
-    print ENTR_MSG
-    gets
-    puts
+    @people.each_with_index do |person, index|
+      puts "#{index}) Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
+    end
   end
 
   def create_person
@@ -59,14 +61,12 @@ module App
 
   def create_rental
     puts 'Select a book from the following list:'
-    @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
+    display_books
     print INPT_MSG
     book_index = gets.chomp.to_i
     puts
     puts 'Select a person form the following list:'
-    @people.each_with_index do |person, index|
-      puts "#{index}) Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
-    end
+    display_people
     print INPT_MSG
     person_index = gets.chomp.to_i
     puts
@@ -79,15 +79,14 @@ module App
 
   def display_rentals
     print 'Enter the person\'s ID --> '
+    display_people
     person_id = gets.chomp.to_i
     renter = @people.select { |person| person.id == person_id }
     puts
     puts "Rentals of #{renter.first.name}:"
     puts 'EMPTY' if renter.first.rentals.empty?
     puts(renter.first.rentals.map { |rental| "Book: #{rental.book.title}, Rented on: #{rental.date}" })
-    print ENTR_MSG
-    gets
-    puts
+    enter_msg
   end
 
   private
