@@ -5,6 +5,7 @@ require_relative 'book'
 require_relative 'rental'
 require_relative 'app'
 
+
 class Main
   include App
 
@@ -12,7 +13,7 @@ class Main
     @main_ans = 0
     @books = []
     @people = []
-
+    read_json_people
     puts 'Welcome to School Library App!'
     puts
   end
@@ -115,12 +116,17 @@ class Main
     permission = gets.chomp.upcase
     permission = permission != 'N'
     create_student(age, name, permission)
+    puts 'Student created successfully'
+    puts
   end
 
   def create_teacher_input(age, name)
     print 'Specialty --> '
     specialty = gets.chomp
-    create_teacher(age, name, specialty)
+    create_teacher(specialty, age, name)
+    puts
+    puts 'Teacher created successfully'
+    puts
   end
 
   def main
@@ -130,6 +136,7 @@ class Main
       puts
       select_option
     end
+    save_json
     puts 'Exiting session'
     puts 'Thank you for using the Library School App!'
   end
