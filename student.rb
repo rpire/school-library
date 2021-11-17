@@ -1,6 +1,7 @@
 require_relative 'person'
 
 class Student < Person
+  DEFAULT_BOOL = true
   def initialize(age, name = 'Unknown', parent_permission = DEFAULT_BOOL)
     super(age, name, parent_permission)
   end

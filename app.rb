@@ -1,4 +1,9 @@
+require 'json'
+require './storage'
+
 module App
+  include Storage
+
   INPT_MSG = 'Enter an option number here --> '.freeze
   ENTR_MSG = 'Press ENTER to continue'.freeze
 
@@ -18,7 +23,7 @@ module App
     puts 'List of people:'
     puts 'EMPTY' if @people.empty?
     @people.each_with_index do |person, index|
-      puts "#{index}) Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
+      puts "#{index}) [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
     end
   end
 
@@ -34,15 +39,10 @@ module App
 
   def create_book(title, author)
     @books << Book.new(title, author)
-    puts
-    puts 'Book created successfully'
-    puts
   end
 
   def create_rental(book_index, person_index, date)
     Rental.new(date, @books[book_index], @people[person_index])
-    puts 'Rental created successfully'
-    puts
   end
 
   def display_rentals(person_input)
@@ -51,7 +51,6 @@ module App
       puts 'No rentals found for this ID'
       user_rental_id_input
     else
-      puts renter
       puts "Rentals of #{renter.first.name}:"
       puts 'EMPTY' if renter.first.rentals.empty?
       puts(renter.first.rentals.map { |rental| "Book: #{rental.book.title}, Rented on: #{rental.date}" })
@@ -63,14 +62,9 @@ module App
 
   def create_student(age, name, permission)
     @people << Student.new(age, name, permission)
-    puts 'Student created successfully'
-    puts
   end
 
-  def create_teacher(age, name, specialty)
+  def create_teacher(specialty, age, name)
     @people << Teacher.new(specialty, age, name)
-    puts
-    puts 'Teacher created successfully'
-    puts
   end
 end

@@ -12,7 +12,9 @@ class Main
     @main_ans = 0
     @books = []
     @people = []
-
+    read_json_people if File.exist?('./local/people.json')
+    read_json_books if File.exist?('./local/books.json')
+    read_json_rentals unless @people.empty? || @books.empty? || !File.exist?('./local/rentals.json')
     puts 'Welcome to School Library App!'
     puts
   end
@@ -45,7 +47,7 @@ class Main
     when 5
       user_rental_input unless @books.empty? && @people.empty?
     when 6
-      user_rental_id_input
+      user_rental_id_input unless @people.empty?
     else
       if @main_ans != 7
         puts 'Invalid input, please try again'
@@ -82,6 +84,9 @@ class Main
     print 'Author --> '
     author = gets.chomp
     create_book(title, author)
+    puts
+    puts 'Book created successfully'
+    puts
   end
 
   def user_rental_input
@@ -98,6 +103,8 @@ class Main
     print 'Enter date of retrieval --> '
     date = gets.chomp
     create_rental(book_index, person_index, date)
+    puts 'Rental created successfully'
+    puts
   end
 
   def user_rental_id_input
@@ -115,12 +122,17 @@ class Main
     permission = gets.chomp.upcase
     permission = permission != 'N'
     create_student(age, name, permission)
+    puts 'Student created successfully'
+    puts
   end
 
   def create_teacher_input(age, name)
     print 'Specialty --> '
     specialty = gets.chomp
-    create_teacher(age, name, specialty)
+    create_teacher(specialty, age, name)
+    puts
+    puts 'Teacher created successfully'
+    puts
   end
 
   def main
@@ -130,6 +142,7 @@ class Main
       puts
       select_option
     end
+    save_json
     puts 'Exiting session'
     puts 'Thank you for using the Library School App!'
   end
