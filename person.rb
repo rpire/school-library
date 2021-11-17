@@ -14,7 +14,7 @@ class Person
     @corrector = Corrector.new
   end
 
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :parent_permission
 
   attr_reader :id, :rentals
 
