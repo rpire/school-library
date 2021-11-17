@@ -5,6 +5,7 @@ class Teacher < Person
     super(age, name)
     @specialization = specialization
   end
+  attr_reader :specialization
 
   def can_use_services?
     true
